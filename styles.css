@@ -1,34 +1,94 @@
-// Function to fetch image list from images.json and load the gallery
-function loadGallery() {
-    const gallery = document.getElementById('gallery');
-
-    // Fetch the image filenames from the JSON file
-    fetch('images.json')
-        .then(response => response.json())
-        .then(data => {
-            const images = data.images;  // List of image filenames
-
-            // Loop through the image filenames and create gallery items
-            images.forEach((filename, index) => {
-                const galleryItem = document.createElement('div');
-                galleryItem.classList.add('gallery-item');
-
-                const img = document.createElement('img');
-                img.src = `images/${filename}`;  // Load image from images folder
-                img.alt = `Image ${index + 1}`;
-
-                const caption = document.createElement('p');
-                caption.innerText = `Image ${index + 1}`;
-
-                galleryItem.appendChild(img);
-                galleryItem.appendChild(caption);
-                gallery.appendChild(galleryItem);
-            });
-        })
-        .catch(err => {
-            console.error('Error loading images:', err);
-        });
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-// Call the function to load the gallery after the DOM is ready
-window.onload = loadGallery;
+/* Body and Text Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+/* Main Gallery Section */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+
+.gallery-item {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid #eee;
+}
+
+.gallery-item p {
+    font-size: 1.2rem;
+    padding: 15px;
+    color: #4CAF50;
+}
+
+/* Footer Section */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+footer p {
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .gallery-item p {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .gallery-item p {
+        font-size: 0.9rem;
+    }
+}
