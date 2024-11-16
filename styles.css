@@ -1,0 +1,34 @@
+// Function to fetch image list from images.json and load the gallery
+function loadGallery() {
+    const gallery = document.getElementById('gallery');
+
+    // Fetch the image filenames from the JSON file
+    fetch('images.json')
+        .then(response => response.json())
+        .then(data => {
+            const images = data.images;  // List of image filenames
+
+            // Loop through the image filenames and create gallery items
+            images.forEach((filename, index) => {
+                const galleryItem = document.createElement('div');
+                galleryItem.classList.add('gallery-item');
+
+                const img = document.createElement('img');
+                img.src = `images/${filename}`;  // Load image from images folder
+                img.alt = `Image ${index + 1}`;
+
+                const caption = document.createElement('p');
+                caption.innerText = `Image ${index + 1}`;
+
+                galleryItem.appendChild(img);
+                galleryItem.appendChild(caption);
+                gallery.appendChild(galleryItem);
+            });
+        })
+        .catch(err => {
+            console.error('Error loading images:', err);
+        });
+}
+
+// Call the function to load the gallery after the DOM is ready
+window.onload = loadGallery;
